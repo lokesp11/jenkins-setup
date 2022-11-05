@@ -23,7 +23,7 @@ fi
 
 if [ -d "/tmp/jenkins-repo/" ]; then
     sudo rm -rf /tmp/jenkins-repo/
-done    
+fi    
 sudo mkdir -p /tmp/jenkins-repo/
 sudo git clone https://github.com/lokesp11/jenkins-setup.git /tmp/jenkins-repo/
 echo "copying jenkins module and manifests"
