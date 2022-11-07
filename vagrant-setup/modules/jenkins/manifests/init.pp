@@ -7,7 +7,7 @@ package { 'openjdk-11-jre':
 
 #Installing jenkins keys
 exec { 'install-jenkins-keys':
-  command => "curl -fsSL https://pkg.jenkins.io/debian/jenkins.io.key | sudo tee /usr/share/keyrings/jenkins-keyring.asc > /dev/null",
+  command => "sudo wget --dns-timeout=10 --connect-timeout=10 --inet4-only https://pkg.jenkins.io/debian/jenkins.io.key -O /usr/share/keyrings/jenkins-keyring.asc",
   creates => "/usr/share/keyrings/jenkins-keyring.asc",
   onlyif => "test ! -f /usr/share/keyrings/jenkins-keyring.asc",
   path => ['/usr/bin', '/usr/sbin'],
@@ -26,6 +26,13 @@ exec { 'apt-update':
     command => "apt-get update",
     path => ['/usr/bin', '/usr/sbin'],
     require => Exec['install-jenkins-keys','add-jenkins-repo']
+}
+
+#Adding sleep as even after require relationship in jenkins package sometimes deployment compaints for package not found.
+exec { 'sleep':
+    command => "sleep 5",
+    path => ['/usr/bin', '/usr/sbin'],
+    require => Exec['apt-update']
 }
 
 #Installing jenkins latest package
