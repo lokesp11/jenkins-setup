@@ -10,6 +10,7 @@ else
 			wget --dns-timeout=10 --connect-timeout=10 --inet4-only https://apt.puppetlabs.com/puppet6-release-focal.deb
 			sudo dpkg -i puppet6-release-focal.deb
 			sudo apt-get update -y
+			sudo sleep 5
 			sudo apt-get install puppet-agent -y
 			sudo systemctl start puppet
 			sudo systemctl enable puppet
