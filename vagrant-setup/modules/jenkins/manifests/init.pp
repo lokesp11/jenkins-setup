@@ -30,7 +30,7 @@ exec { 'apt-update':
 
 #Adding sleep as even after require relationship in jenkins package sometimes deployment compaints for package not found.
 exec { 'sleep':
-    command => "sleep 5",
+    command => "sleep 60",
     path => ['/usr/bin', '/usr/sbin'],
     require => Exec['apt-update']
 }
